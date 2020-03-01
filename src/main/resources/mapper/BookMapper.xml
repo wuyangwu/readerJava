@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.reader.mapper.BookMapper">
+    <sql id="tBookColumns">
+        a.id as "id",
+        a.name as "name",
+        a.pricate as "pricate",
+        a.score as "score",
+        a.author as "author",
+        a.introduction as "introduction",
+        a.thumbsup as "thumbsup",
+        a.top as "top",
+        a.type as "type",
+        a.upauthor as "upauthor",
+        a.bookUrl as "bookUrl",
+        a.biaoqianId as "biaoqianId",
+        a.upauthorId as "upauthorId",
+        a.delflag as "delflag",
+        a.remarks as "remarks",
+        a.createTime as "createTime"
+    </sql>
+
+    <sql id="tBookJoins" >
+    </sql>
+
+    <select id="selectAll" resultType="Book">
+       select
+        <include refid="tBookColumns"></include>
+        from book a
+        <include refid="tBookJoins"></include>
+        where a.delflag = "0"
+        order by a.createTime desc
+    </select>
+
+    <select id="selectId" resultType="Book">
+        select 
+        <include refid="tBookColumns"></include>
+        from book a
+        <include refid="tBookJoins"></include>
+        where a.delflag = "0" and a.id = #{id}
+    </select>
+    
+    <select id="findName" resultType="Book">
+        select
+        <include refid="tBookColumns"></include>
+        from book a
+        <include refid="tBookJoins"></include>
+        where
+        <if test="name != null and name != ''">
+        a.name = #{name} and
+        </if>
+        a.delflag = "0"
+        order by a.createTime desc
+    </select>
+</mapper>

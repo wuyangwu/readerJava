@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.reader.mapper.BiaoqianMapper">
+    <sql id="tBiaoQianColumns">
+         a.id as "id",
+        a.name as "name",
+        a.number  as "number",
+        a.createPer as "createPer",
+        a.delflag as "delflag",
+        a.remarks as "remarks",
+        a.createTime as "createTime"
+    </sql>
+
+    <sql id="tBiaoQianJoins"></sql>
+
+    <select id="selectAll" resultType="Biaoqian">
+        select 
+        <include refid="tBiaoQianColumns"></include>
+        from biaoqian a
+        <include refid="tBiaoQianJoins"></include>
+        where a.delflag = "0"
+        order by a.createTime desc
+    </select>
+    
+    <update id="deleteId">
+        update biaoqian
+        set delflag = "1"
+        where id = #{id}
+    </update>
+
+    <update id="updateOrId">
+        update biaoqian
+        <set>
+            <if test="name!= null and name != ''">
+                name = #{name},
+            </if>
+            <if test="number != null and number !=''">
+                number = #{number},
+            </if>
+            <if test="createPer != null and createPer != ''">
+                createPer = #{createPer}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="add">
+        INSERT INTO biaoqian(
+          number,
+          name,
+          createPer,
+          remarks,
+          createTime
+        ) VALUES(
+           #{number},
+           #{name},
+           #{createPer},
+           #{remarks},
+           #{createTime}
+        )
+    </insert>
+</mapper>

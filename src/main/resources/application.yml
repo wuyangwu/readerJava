@@ -1,0 +1,15 @@
+# redis 配置
+spring:
+  mvc:
+#    静态文件访问路径
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+mybatis:
+  #  config-location: classpath:config/mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.reader.entity
+
+#mysql:
+#  driver:
+#    location: /home/wu/mavenfactory/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar
