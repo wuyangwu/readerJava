@@ -28,4 +28,16 @@ public class BookService {
     public List<Book> findName(String name){
         return bookMapper.findName(name);
     }
+
+    public void add(Book book){
+         bookMapper.add(book);
+    }
+
+    public Integer deleteId(int id){
+        return bookMapper.deleteId(id);
+    }
+
+    public void UpdateOrId(Book book){
+        bookMapper.updateOrid(book);
+    }
 }

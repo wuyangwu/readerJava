@@ -6,7 +6,9 @@ import com.example.reader.web.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author wuyang
@@ -31,5 +33,27 @@ public class HouTaiBookController {
     @GetMapping("/findname/{name}")
     public List<Book> findName(@PathVariable String name){
         return bookService.findName(name);
+    }
+
+    @PostMapping("/add")
+    public void add(@RequestBody Book book){
+        int max=1000;
+        int min=100;
+        Random r = new Random();
+        book.setScore(String.valueOf(r.nextInt(10)+1));
+        book.setCreateTime(new Date());
+        book.setThumbsup(String.valueOf(r.nextInt(max)%(max-min+1) + min));
+        bookService.add(book);
+    }
+    // 删除
+    @GetMapping("/delete/{id}")
+    public void deleteId(@PathVariable int id){
+        bookService.deleteId(id);
+    }
+
+    // 修改
+    @PostMapping("/updateOrId")
+    public void  updateOrId(@RequestBody Book book){
+        bookService.UpdateOrId(book);
     }
 }

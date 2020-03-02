@@ -15,4 +15,5 @@ public interface BiaoqianMapper {
     public void add(Biaoqian biaoqian);
 
     public void updateOrId(Biaoqian biaoqian);
+
 }

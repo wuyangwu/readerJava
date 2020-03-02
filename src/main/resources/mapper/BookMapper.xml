@@ -10,7 +10,7 @@
         a.introduction as "introduction",
         a.thumbsup as "thumbsup",
         a.top as "top",
-        a.type as "type",
+        b.name as "type",
         a.upauthor as "upauthor",
         a.bookUrl as "bookUrl",
         a.biaoqianId as "biaoqianId",
@@ -26,30 +26,87 @@
     <select id="selectAll" resultType="Book">
        select
         <include refid="tBookColumns"></include>
-        from book a
+        from book a , biaoqian b
         <include refid="tBookJoins"></include>
-        where a.delflag = "0"
+        where b.id = a.biaoqianId  and a.delflag = "0"
         order by a.createTime desc
     </select>
 
     <select id="selectId" resultType="Book">
         select 
         <include refid="tBookColumns"></include>
-        from book a
+        from book a , biaoqian b
         <include refid="tBookJoins"></include>
-        where a.delflag = "0" and a.id = #{id}
+        where b.id = a.biaoqianId  and a.delflag = "0" and a.id = #{id}
     </select>
     
     <select id="findName" resultType="Book">
         select
         <include refid="tBookColumns"></include>
-        from book a
+        from book a , biaoqian b
         <include refid="tBookJoins"></include>
         where
         <if test="name != null and name != ''">
         a.name = #{name} and
         </if>
-        a.delflag = "0"
+        a.delflag = "0" and b.id = a.biaoqianId
         order by a.createTime desc
     </select>
+
+    <update id="updateOrid">
+        UPDATE book
+        <set>
+            <if test="name !=null and name !=''">
+                name = #{name},
+            </if>
+            <if test="pricate != null and pricate != ''">
+                pricate = #{pricate},
+            </if>
+            <if test="author != null and author != ''">
+                author = #{author},
+            </if>
+            <if test="introduction != null and introduction != ''">
+                introduction = #{introduction},
+            </if>
+            <if test="bookUrl != null and bookUrl != ''">
+                bookUrl = #{bookUrl},
+            </if>
+            <if test="biaoqianId != null and biaoqianId != ''">
+                biaoqianId = #{biaoqianId}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <update id="deleteId">
+        update book
+        set delflag = "1"
+        where id = #{id}
+    </update>
+
+    <insert id="add">
+        INSERT INTO book(
+        name,
+        pricate,
+        author,
+        introduction,
+        bookUrl,
+        biaoqianId,
+        upauthorId,
+        createTime,
+        score,
+        thumbsup
+        ) VALUES (
+        #{name},
+        #{pricate},
+        #{author},
+        #{introduction},
+        #{bookUrl},
+        #{biaoqianId},
+        #{upauthorId},
+        #{createTime},
+        #{score},
+        #{thumbsup}
+        )
+    </insert>
 </mapper>

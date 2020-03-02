@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -55,9 +57,10 @@ public class FileController {
     }
 
     @RequestMapping("/updatefile")
-    public String  file(@RequestParam(value = "file") MultipartFile file) {
+    public Map<String, String>  file(@RequestParam(value = "file") MultipartFile file) {
         String url = FileUrl.BookUrlPath;
         String filename = file.getOriginalFilename(); // 文件名
+        String filenames = filename;
         String suffixName = filename.substring(filename.lastIndexOf(".")); // 后缀名
         filename = UUID.randomUUID() + suffixName;
         String newFileUrl = String.format("%s\\%s",url,filename);
@@ -73,6 +76,9 @@ public class FileController {
         }
         String shouFile = serverConfig.getUrl()+"/img/book/"+filename;
         logger.info("书籍访问路径地址 = {}", shouFile);
-        return shouFile;
+        Map<String,String> map = new HashMap<>();
+        map.put("name",filenames);
+        map.put("url",shouFile);
+        return map;
     }
 }
