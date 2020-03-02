@@ -1,9 +1,15 @@
 package com.example.reader.config.springsecurity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * spring security 处理session失效和维登录的异常处理
@@ -13,15 +19,25 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class SessionController {
-    @RequestMapping("/session/invalid")
-    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-    public String SessionInvalid(){
-        System.out.println("session失效");
-        return "session失效";
-    }
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*",allowCredentials = "true")
+    @RequestMapping("/session/invalid")
+//    @ResponseStatus(code = HttpStatus.UNAUTHORIZED) // 改变code
+    public Map<String, String> SessionInvalid(){
+        logger.info("session失效");
+        Map<String,String> map = new HashMap<>();
+        map.put("msg","sessionFaile");
+        // session过期
+        return map;
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*",allowCredentials = "true")
     @RequestMapping("/login_page")
-    public String Login(){
-        return "请登录";
+    public Map<String, String> Login(){
+        logger.info("请先登录");
+        Map<String,String> map = new HashMap<>();
+        map.put("msg","login");
+        // session过期
+        return map;
     }
 }

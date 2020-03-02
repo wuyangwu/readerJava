@@ -1,5 +1,7 @@
 package com.example.reader.config.springsecurity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -18,8 +20,11 @@ import java.io.IOException;
  */
 @Component
 public class AuthenticationAccessDeniedHandler implements AccessDeniedHandler {
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
-        System.out.println("权限不足");
+        logger.info("用户权限不足");
     }
 }

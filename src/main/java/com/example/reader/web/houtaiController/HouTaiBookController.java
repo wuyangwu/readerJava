@@ -3,6 +3,10 @@ package com.example.reader.web.houtaiController;
 import com.example.reader.entity.Biaoqian;
 import com.example.reader.entity.Book;
 import com.example.reader.web.service.BookService;
+import com.example.reader.web.util.Json;
+import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +22,9 @@ import java.util.Random;
 @RestController
 @RequestMapping(value = "/houtai/book")
 public class HouTaiBookController {
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private BookService bookService;
 
@@ -33,6 +40,17 @@ public class HouTaiBookController {
     @GetMapping("/findname/{name}")
     public List<Book> findName(@PathVariable String name){
         return bookService.findName(name);
+    }
+    // 分页版本查找所有
+    @PostMapping("/selects")
+    public PageInfo<Book> selectAllPage(@RequestBody Json json){
+        System.out.println(json.getPageNum());
+        return bookService.selectAllPage(json.getPageNum());
+    }
+    // 分页版本
+    @PostMapping("/findnames/{name}")
+    public PageInfo<Book> findNames(@RequestBody Json json){
+        return bookService.findNamePage(json.getBookName(),1);
     }
 
     @PostMapping("/add")

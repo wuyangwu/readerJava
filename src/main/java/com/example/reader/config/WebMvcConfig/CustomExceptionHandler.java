@@ -1,5 +1,7 @@
 package com.example.reader.config.WebMvcConfig;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
@@ -16,11 +18,13 @@ import java.nio.charset.MalformedInputException;
  */
 @ControllerAdvice
 public class CustomExceptionHandler {
+    protected Logger logger = LoggerFactory.getLogger(getClass());
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public void uploadException(MaxUploadSizeExceededException e , HttpServletResponse response) throws Exception{
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
-        System.out.println("上传文件大小超出限制");
+        logger.info("上传文件大小超出限制");
+//        System.out.println("上传文件大小超出限制");
         out.write("上传文件大小超出限制");
         out.flush();
         out.close();
