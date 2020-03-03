@@ -8,10 +8,10 @@ package com.example.reader.entity;
 public class UserDetailed    extends DataEntity {
     private int id;
     private String username;
-    private int leavel;
+    private int leavel; // 用户等级
     private String signature;
     private int uid;
-    private String pricate;
+    private String pricate; // 头像
 
     public int getId() {
         return id;

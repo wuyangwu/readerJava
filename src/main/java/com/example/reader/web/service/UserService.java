@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
        Users users = new Users();
        users.setEnabled(user.getEnabled());
        users.setId(user.getId());
-           users.setUsername(username);
+       users.setUsername(username);
        // 这个里面又判断密码的
        users.setUserDetailed(userDetailedService.selectUid(user.getId()));
        users.setPassword(user.getPassword());

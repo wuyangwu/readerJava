@@ -1,6 +1,6 @@
 package com.example.reader.entity;
 
-public class UserRole {
+public class UserRole extends DataEntity {
     /**
      *  id
      */

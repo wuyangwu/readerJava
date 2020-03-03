@@ -2,7 +2,7 @@ package com.example.reader.entity;
 
 import java.util.List;
 
-public class User {
+public class User extends DataEntity {
     /**
      *  id
      */
