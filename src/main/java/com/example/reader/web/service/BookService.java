@@ -1,6 +1,8 @@
 package com.example.reader.web.service;
 
+import com.example.reader.entity.Biaoqian;
 import com.example.reader.entity.Book;
+import com.example.reader.mapper.BiaoqianMapper;
 import com.example.reader.mapper.BookMapper;
 import com.example.reader.web.util.PageHelpers;
 import com.github.pagehelper.PageHelper;
@@ -19,6 +21,9 @@ import java.util.List;
 public class BookService {
     @Autowired
     private BookMapper bookMapper;
+
+    @Autowired
+    private BiaoqianMapper biaoqianMapper;
 
     // 不是分页版本
     public List<Book> selectAll(){
@@ -51,6 +56,14 @@ public class BookService {
         List<Book> list = bookMapper.findName(name);
         PageInfo<Book> pageInfo = new PageInfo<Book>(list);
         return pageInfo;
+    }
+
+    public List<Biaoqian> selectcount(){
+        List<Biaoqian> list = biaoqianMapper.selectcount();
+        for (Biaoqian biaoqian: list){
+            biaoqian.setBooklistsize(biaoqian.getBookList().size());
+        }
+        return list;
     }
 
     public void add(Book book){

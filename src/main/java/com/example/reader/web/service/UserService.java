@@ -1,13 +1,17 @@
 package com.example.reader.web.service;
 
 import com.example.reader.entity.User;
+import com.example.reader.entity.UserLoginTime;
 import com.example.reader.entity.Users;
+import com.example.reader.mapper.UserLoginTimeMapper;
 import com.example.reader.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @author wuyang
@@ -21,6 +25,10 @@ public class UserService implements UserDetailsService {
     private UserMapper userMapper;
 
     @Autowired
+    private UserLoginTimeMapper userLoginTimeMapper;
+
+
+    @Autowired
     private UserDetailedService userDetailedService;
 
 
@@ -32,6 +40,10 @@ public class UserService implements UserDetailsService {
            throw new UsernameNotFoundException("账户不存在");
        }
        Users users = new Users();
+       UserLoginTime userLoginTime = new UserLoginTime();
+       userLoginTime.setUid(user.getId());
+       userLoginTime.setCreateTime(new Date());
+       userLoginTimeMapper.add(userLoginTime);
        users.setEnabled(user.getEnabled());
        users.setId(user.getId());
        users.setUsername(username);

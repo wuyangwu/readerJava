@@ -3,6 +3,8 @@ package com.example.reader.config.springsecurity;
 
 import com.example.reader.web.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +37,8 @@ import java.util.Map;
  */
 @Configuration
 public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserService userService;
@@ -151,14 +155,15 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                     // 注销接口
                     @Override
                     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
-
+                        logger.info("cookie的值 ={}",httpServletRequest.getCookies());
                     }
                 })
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                     // 注销成功后的业务处理
                     @Override
                     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-                        httpServletResponse.sendRedirect("/login");
+//                       logger.info("注销成功");
+                        httpServletResponse.sendRedirect("/session/zhuxiao");
                     }
                 })
                 .and()

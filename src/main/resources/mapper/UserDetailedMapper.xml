@@ -13,8 +13,44 @@
         a.createTime as "createTime"
     </sql>
 
+
+    <sql id="tUserDetailedOrRoleColumns">
+        a.id as "id",
+        a.username as "username",
+        a.leavel as "leavel",
+        a.signature as "signature",
+        a.uid as "uid",
+        a.pricate as "pricate",
+        a.delflag as "delflag",
+        a.remarks as "remarks",
+        a.createTime as "createTime",
+         c.id  as "rid",
+        c.name as "name",
+        c.nameZh as "namezh"
+    </sql>
+
     <sql id="tUserDetailedJoins">
     </sql>
+
+    <sql id="tUserDetailedsJoinss">
+        LEFT JOIN user_role b ON a.id = b.uid and b.delflag = '0'
+        LEFT JOIN role c ON  c.id = b.rid and c.delflag = '0'
+    </sql>
+    
+    <resultMap id="newsUserDetaileds" type="UserDetailed">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="leavel" property="leavel"></result>
+        <result column="signature" property="signature"></result>
+        <result column="uid" property="uid"></result>
+        <result column="pricate" property="pricate"></result>
+        <result column="createTime" property="createTime"></result>
+        <collection property="roleList" ofType="Role">
+            <result column="name" property="name"></result>
+            <result column="nameZh" property="namezh"></result>
+            <result column="rid" property="rid"></result>
+        </collection>
+    </resultMap>
 
     <select id="selectAll" resultType="UserDetailed">
         select 
@@ -24,6 +60,22 @@
         where a.delflag = "0"
     </select>
 
+    <select id="selectAlls" resultMap="newsUserDetaileds">
+        select
+        <include refid="tUserDetailedOrRoleColumns"></include>
+        from userdetailed a
+        <include refid="tUserDetailedsJoinss"></include>
+        where a.delflag = "0"
+    </select>
+
+    <select id="selectUsername" resultMap="newsUserDetaileds">
+        select
+        <include refid="tUserDetailedOrRoleColumns"></include>
+        from userdetailed a
+        <include refid="tUserDetailedsJoinss"></include>
+        where a.delflag = "0" and a.username = #{username}
+    </select>
+
     <select id="selectUid" resultType="UserDetailed">
         select
         <include refid="tUserDetailedColumns"></include>
@@ -31,4 +83,15 @@
         <include refid="tUserDetailedJoins"></include>
         where a.delflag = '0' and  a.uid = 1
     </select>
+
+
+
+    <update id="updateOrUid">
+        update
+        userdetailed a,
+        user_role c
+        set a.delflag = "1", c.delflag = "1"
+        where c.uid = a.uid
+        and a.uid =#{uid}
+    </update>
 </mapper>

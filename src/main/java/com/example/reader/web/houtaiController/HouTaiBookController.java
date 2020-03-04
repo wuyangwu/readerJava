@@ -53,6 +53,11 @@ public class HouTaiBookController {
         return bookService.findNamePage(json.getBookName(),1);
     }
 
+    @GetMapping("/slect/count/")
+    public List<Biaoqian> selectcount(){
+        return bookService.selectcount();
+    }
+
     @PostMapping("/add")
     public void add(@RequestBody Book book){
         int max=1000;

@@ -1,17 +1,20 @@
 package com.example.reader.entity;
 
+import java.util.List;
+
 /**
  * @author wuyang
  * @version 1.0
  * @date 2019/11/11 21:28
  */
-public class UserDetailed    extends DataEntity {
+public class UserDetailed  extends DataEntity {
     private int id;
     private String username;
     private int leavel; // 用户等级
     private String signature;
     private int uid;
     private String pricate; // 头像
+    private List<Role> roleList; // 获取每个用户的权限
 
     public int getId() {
         return id;
@@ -59,6 +62,14 @@ public class UserDetailed    extends DataEntity {
 
     public void setPricate(String pricate) {
         this.pricate = pricate;
+    }
+
+    public List<Role> getList() {
+        return roleList;
+    }
+
+    public void setList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 
     @Override

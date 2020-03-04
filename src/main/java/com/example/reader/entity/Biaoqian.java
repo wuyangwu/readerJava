@@ -1,5 +1,7 @@
 package com.example.reader.entity;
 
+import java.util.List;
+
 /**
  * @author wuyang
  * @version 1.0
@@ -10,6 +12,8 @@ public class Biaoqian extends DataEntity {
     private String number;
     private String name;
     private int createPer;
+    private List<Book> bookList;
+    private int booklistsize;
 
     public int getId() {
         return id;
@@ -41,6 +45,22 @@ public class Biaoqian extends DataEntity {
 
     public void setCreatePer(int createPer) {
         this.createPer = createPer;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
+
+    public int getBooklistsize() {
+        return booklistsize;
+    }
+
+    public void setBooklistsize(int booklistsize) {
+        this.booklistsize = booklistsize;
     }
 
     @Override

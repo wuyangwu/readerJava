@@ -27,7 +27,7 @@ public class SessionController {
     public Map<String, String> SessionInvalid(){
         logger.info("session失效");
         Map<String,String> map = new HashMap<>();
-        map.put("msg","sessionFaile");
+        map.put("msgs","sessionFaile");
         // session过期
         return map;
     }
@@ -36,8 +36,17 @@ public class SessionController {
     public Map<String, String> Login(){
         logger.info("请先登录");
         Map<String,String> map = new HashMap<>();
-        map.put("msg","login");
+        map.put("msgs","login");
         // session过期
+        return map;
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*",allowCredentials = "true")
+    @RequestMapping("/session/zhuxiao")
+    public Map<String, String> zhuxiao(){
+        logger.info("注销成功");
+        Map<String, String> map = new HashMap<>();
+        map.put("msg","以及注销成功返回登录页面");
         return map;
     }
 }

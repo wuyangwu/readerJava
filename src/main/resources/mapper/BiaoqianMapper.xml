@@ -10,8 +10,38 @@
         a.remarks as "remarks",
         a.createTime as "createTime"
     </sql>
+    <sql id="tBiaoQianColumnns">
+        a.id as "id",
+        a.name as "name",
+        a.number as "number",
+        b.author as "author",
+        b.introduction as "introduction"
+
+    </sql>
 
     <sql id="tBiaoQianJoins"></sql>
+
+    <sql id="tBiaoQianJoinnnss">
+        left join book b on a.id = b.biaoqianId and b.delflag ='0'
+    </sql>
+
+    <resultMap id="newBiaoqians" type="Biaoqian">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="number" property="number"></result>
+        <collection property="bookList" ofType="Book">
+            <result column="author" property="author"></result>
+            <result column="introduction" property="introduction"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selectcount" resultMap="newBiaoqians">
+        select
+        <include refid="tBiaoQianColumnns"></include>
+        from biaoqian a
+        <include refid="tBiaoQianJoinnnss"></include>
+        where a.delflag = "0"
+    </select>
 
     <select id="selectAll" resultType="Biaoqian">
         select 

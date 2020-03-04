@@ -16,6 +16,10 @@ public class Role  extends DataEntity {
      */
     private String namezh;
 
+    private Integer rid;
+
+    private String loginName;
+
     /**
      * 
      * @author wuyang
@@ -74,5 +78,21 @@ public class Role  extends DataEntity {
      */
     public void setNamezh(String namezh) {
         this.namezh = namezh == null ? null : namezh.trim();
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public Integer getRid() {
+        return rid;
+    }
+
+    public void setRid(Integer rid) {
+        this.rid = rid;
     }
 }

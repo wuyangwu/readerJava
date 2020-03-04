@@ -16,4 +16,6 @@ public interface BiaoqianMapper {
 
     public void updateOrId(Biaoqian biaoqian);
 
+    public List<Biaoqian> selectcount();
+
 }
