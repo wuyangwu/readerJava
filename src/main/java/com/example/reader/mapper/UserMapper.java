@@ -12,4 +12,6 @@ public interface UserMapper {
     User loadUserByUsername(String username);
 
     List<Role> getUserRolesByUid(int id);
+
+    public void add(User user);
 }

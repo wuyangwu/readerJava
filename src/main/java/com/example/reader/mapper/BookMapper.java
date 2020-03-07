@@ -22,4 +22,6 @@ public interface BookMapper {
     public Integer deleteId(int id);
 
     public void updateOrid(Book book);
+
+    public List<Book> findBookOrBiaoqianId(int biaoqianid);
 }

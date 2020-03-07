@@ -20,13 +20,25 @@
     select
     <include refid="tUserColumns"></include>
     from user a
-    where username = #{username}
+    where username = #{username}  and a.delflag = "0"
   </select>
+
+  <insert id="add">
+    INSERT  INTO user(
+       username,
+       password
+    ) VALUES (
+        #{username},
+        #{password}
+    )
+  </insert>
 
   <select id="getUserRolesByUid" resultType="Role">
     select r.id as id , r.name as name , r.nameZh as namezh , r.remarks as remarks , r.createTime as createTime, r.delflag as delflag
     from role r , user_role ur
     where r.id = ur.rid and ur.uid = #{id}
   </select>
+
+
 
 </mapper>

@@ -39,6 +39,15 @@
         <include refid="tBookJoins"></include>
         where b.id = a.biaoqianId  and a.delflag = "0" and a.id = #{id}
     </select>
+
+    <select id="findBookOrBiaoqianId" resultType="Book">
+        select
+        <include refid="tBookColumns"></include>
+        from book a, biaoqian b
+        <include refid="tBookJoins"></include>
+        where a.biaoqianId = #{biaoqianid}  and a.delflag = "0" and b.id = a.biaoqianId
+        order by a.createTime desc
+    </select>
     
     <select id="findName" resultType="Book">
         select

@@ -92,6 +92,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/book/home/**").permitAll()
+                .antMatchers("/qiantai/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

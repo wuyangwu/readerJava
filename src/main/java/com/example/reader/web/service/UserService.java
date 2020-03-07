@@ -55,4 +55,14 @@ public class UserService implements UserDetailsService {
        return users;
 //       return user;
     }
+
+    public User findUsername(String username){
+        return userMapper.loadUserByUsername(username);
+    }
+//    添加用户
+    public void add(User user){
+       userMapper.add(user);
+       User user1 = userMapper.loadUserByUsername(user.getUsername());
+//       插入权限
+    }
 }

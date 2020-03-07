@@ -24,7 +24,7 @@
         a.delflag as "delflag",
         a.remarks as "remarks",
         a.createTime as "createTime",
-         c.id  as "rid",
+        c.id  as "rid",
         c.name as "name",
         c.nameZh as "namezh"
     </sql>
@@ -89,9 +89,10 @@
     <update id="updateOrUid">
         update
         userdetailed a,
-        user_role c
-        set a.delflag = "1", c.delflag = "1"
-        where c.uid = a.uid
+        user_role c,
+        user d
+        set a.delflag = "1", c.delflag = "1" , d.delflag = "1"
+        where c.uid = a.uid and d.id = a.uid
         and a.uid =#{uid}
     </update>
 </mapper>

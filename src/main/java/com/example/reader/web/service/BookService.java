@@ -29,6 +29,10 @@ public class BookService {
     public List<Book> selectAll(){
         return bookMapper.selectAll();
     }
+    // 通过标签id老查找书籍
+    public List<Book> findBiaoQianId(int biaoqianid){
+        return bookMapper.findBookOrBiaoqianId(biaoqianid);
+    }
 
     // pageNum 是第几页
     public PageInfo<Book> selectAllPage(int pageNum){
